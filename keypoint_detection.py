@@ -40,4 +40,4 @@ def mark_keypoints(path, destination):
     cv2.imwrite(destination, frame)
 
 if __name__ == '__main__':
-    mark_keypoints("./test_images/test1_erode.jpg", "./test_images/test1_key.jpg")
+    mark_keypoints("./test_images/testb_erode.jpg", "./test_images/testb_key.jpg")
