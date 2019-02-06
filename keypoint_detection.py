@@ -25,7 +25,7 @@ def mark_keypoints(path, destination):
     net.setInput(inpblob)
     output = net.forward()
 
-    for i in range(nPoints):
+    for i in range(npoints):
         probMap = output[0, i, :, :]
         probMap = cv2.resize(probMap, (frameWidth, frameHeight))
         minVal, prob, minLoc, point = cv2.minMaxLoc(probMap)
