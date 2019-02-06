@@ -19,8 +19,9 @@ def mark_keypoints(path, destination):
     frame = cv2.imread(path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
-    inHeight, inWidth = 368, int(((aspect_ratio * inHeight) *8) // 8)
-    inpblob = cv2.dnn.blobFromImage(frame, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=False, crop=False)
+    inHeight = 368
+    inWidth  = int(((aspect_ratio * inHeight) *8) // 8)
+    inpblob  = cv2.dnn.blobFromImage(frame, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=False, crop=False)
     net.setInput(inpblob)
     output = net.forward()
 
