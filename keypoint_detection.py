@@ -29,7 +29,7 @@ def mark_keypoints(path, destination):
         probMap = output[0, i, :, :]
         probMap = cv2.resize(probMap, (frameWidth, frameHeight))
         minVal, prob, minLoc, point = cv2.minMaxLoc(probMap)
-
+        points = []
         if prob > 0.1 :
             cv2.circle(frame, (int(point[0]), int(point[1])), 8, (0, 255, 255), thickness=-1, lineType=cv2.FILLED)
             cv2.putText(frame, "{}".format(i), (int(point[0]), int(point[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, lineType=cv2.LINE_AA)
