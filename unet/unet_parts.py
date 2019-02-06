@@ -71,12 +71,12 @@ class up(nn.Module):
         if(diffX > 0):
             x1 = x1[:, :, :-diffX, :]
         else :
-            x2 = [:, :, :diffX, :]
+            x2 = x2[:, :, :diffX, :]
 
         if(diffY > 0):
             x1 = x1[:, :, :, :-diffY]
         else :
-            x2 = [:, :, :, :diffY]
+            x2 = x2[:, :, :, :diffY]
         x = torch.cat([x2, x1], dim=1)
         x = self.conv(x)
         return x
