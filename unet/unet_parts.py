@@ -69,7 +69,7 @@ class up(nn.Module):
                         diffY // 2, int(diffY / 2)))
         if(x1.shape[2] != x2.shape[2]):
             x = torch.cat([x2[:, :, :-1, :], x1], dim=1)
-        else 
+        else :
             x = torch.cat([x2, x1], dim=1)
         x = self.conv(x)
         return x
