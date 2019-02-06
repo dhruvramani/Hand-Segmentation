@@ -67,10 +67,7 @@ class up(nn.Module):
         diffY = x1.size()[3] - x2.size()[3]
         x2 = F.pad(x2, (diffX // 2, int(diffX / 2),
                         diffY // 2, int(diffY / 2)))
-        if(x1.shape[2] != x2.shape[2]):
-            x = torch.cat([x2[:, :, :-1, :], x1], dim=1)
-        else :
-            x = torch.cat([x2, x1], dim=1)
+        x = torch.cat([x2[:, :, :-1, :-1], x1], dim=1)
         x = self.conv(x)
         return x
 
