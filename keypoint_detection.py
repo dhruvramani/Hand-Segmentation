@@ -1,6 +1,7 @@
 from __future__ import division
 import cv2
 import time
+import math
 import numpy as np
 
 _PROTPATH = "./utils/pose_deploy.prototxt"
@@ -15,7 +16,7 @@ POSE_PAIRS = [  [0,1], [1,2], [2,3],
 npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
-def mark_keypoints(path, destination):
+def mark_keypoints(path, destination, dist=False):
     frame = cv2.imread(path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
@@ -37,7 +38,28 @@ def mark_keypoints(path, destination):
         else :
             points.append(None)
 
+    if(dist):
+        for pair in POSE_PAIRS:
+            p1, p2 = points[pair[0]], points[pair[1]]
+            if p1 and p2:
+                theta = (math.pi / 2) - math.atan((p2[1] - p1[1]) / (p2[0] - p1[0]))
+                phi = math.pi + theta
+                p3, p4 = p1, p1
+                while([int(i) for i in image[p3[0], p3[1]]] != [0, 0, 0]):
+                    p3[0] = p1[0] + 1 * math.cos(theta)
+                    p3[1] = p1[1] + 1 * math.cos(theta)
+
+                while([int(i) for i in image[p4[0], p4[1]]] != [0, 0, 0]):
+                    p4[0] = p1[0] + 1 * math.cos(phi)
+                    p4[1] = p1[1] + 1 * math.cos(phi)
+
+                cv2.line(frame, (p3[0], p3[1]), (p4[0], p4[1]), (0, 255, 0), 2)
+                dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
+                cv2.putText(frame, "{}".format(dist), (int(p1[0]) + 2, int(p1[1]) + 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
+
     cv2.imwrite(destination, frame)
+
+
 
 if __name__ == '__main__':
     mark_keypoints("./test_images/test5_erode.jpg", "./test_images/test5_key.jpg")
