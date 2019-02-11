@@ -40,6 +40,7 @@ def mark_keypoints(path, destination, dist=True):
 
     if(dist):
         for pair in POSE_PAIRS:
+            print(pair, points)
             p1, p2 = points[pair[0]], points[pair[1]]
             if p1 and p2:
                 theta = (math.pi / 2) - math.atan((p2[1] - p1[1]) / (p2[0] - p1[0]))
