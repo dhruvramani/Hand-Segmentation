@@ -47,17 +47,17 @@ def mark_keypoints(path, destination, dist=True):
                 phi = math.pi + theta
                 p3, p4 = list(p1), list(p2)
                 while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
-                    p3[0] = math.ceil(p3[0] + 1 * math.cos(theta))
-                    p3[1] = math.ceil(p3[1] + 1 * math.sin(theta))
+                    p3[0] = math.ceil(p3[0] + 2 * math.cos(theta))
+                    p3[1] = math.ceil(p3[1] + 2 * math.sin(theta))
 
                 while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                    p4[0] = math.ceil(p4[0] + 1 * math.cos(phi))
-                    p4[1] = math.ceil(p4[1] + 1 * math.sin(phi))
+                    p4[0] = math.ceil(p4[0] + 2 * math.cos(phi))
+                    p4[1] = math.ceil(p4[1] + 2 * math.sin(phi))
 
 
                 cv2.line(frame, (p3[0], p3[1]), (p4[0], p4[1]), (0, 255, 0), 2)
                 dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
-                cv2.putText(frame, "{}".format(dist), (int(p1[0]) + 2, int(p1[1]) + 2), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
+                cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
     cv2.imwrite(destination, frame)
 
