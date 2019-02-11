@@ -45,15 +45,14 @@ def mark_keypoints(path, destination, dist=True):
                 theta = (math.pi / 2) - math.atan((p2[1] - p1[1]) / (p2[0] - p1[0]))
                 phi = math.pi + theta
                 p3, p4 = list(p1), list(p1)
-                print(list(frame[p3[0], p3[1]]) != [0, 0, 0])
+                #print(list(frame[p3[0], p3[1]]) != [0, 0, 0])
                 while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
-                    p3[0] = p1[0] + 1 * math.cos(theta)
-                    p3[1] = p1[1] + 1 * math.cos(theta)
-                    print(p3[0], p3[1])
+                    p3[0] = int(p1[0] + 1 * math.cos(theta))
+                    p3[1] = int(p1[1] + 1 * math.cos(theta))
 
                 while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                    p4[0] = p1[0] + 1 * math.cos(phi)
-                    p4[1] = p1[1] + 1 * math.cos(phi)
+                    p4[0] = int(p1[0] + 1 * math.cos(phi))
+                    p4[1] = int(p1[1] + 1 * math.cos(phi))
 
                 cv2.line(frame, (p3[0], p3[1]), (p4[0], p4[1]), (0, 255, 0), 2)
                 dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
