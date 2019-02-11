@@ -25,7 +25,7 @@ def mark_keypoints(path, destination, dist=True):
     inpblob  = cv2.dnn.blobFromImage(frame, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=False, crop=False)
     net.setInput(inpblob)
     output = net.forward()
-    
+
     points = []
     for i in range(npoints):
         probMap = output[0, i, :, :]
@@ -46,11 +46,11 @@ def mark_keypoints(path, destination, dist=True):
                 theta = (math.pi / 2) - math.atan((p2[1] - p1[1]) / (p2[0] - p1[0]))
                 phi = math.pi + theta
                 p3, p4 = p1, p1
-                while([int(i) for i in image[p3[0], p3[1]]] != [0, 0, 0]):
+                while([int(i) for i in frame[p3[0], p3[1]]] != [0, 0, 0]):
                     p3[0] = p1[0] + 1 * math.cos(theta)
                     p3[1] = p1[1] + 1 * math.cos(theta)
 
-                while([int(i) for i in image[p4[0], p4[1]]] != [0, 0, 0]):
+                while([int(i) for i in frame[p4[0], p4[1]]] != [0, 0, 0]):
                     p4[0] = p1[0] + 1 * math.cos(phi)
                     p4[1] = p1[1] + 1 * math.cos(phi)
 
