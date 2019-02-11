@@ -16,7 +16,7 @@ POSE_PAIRS = [  [0,1], [1,2], [2,3],
 npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
-def mark_keypoints(path, destination, dist=False):
+def mark_keypoints(path, destination, dist=True):
     frame = cv2.imread(path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
@@ -62,4 +62,4 @@ def mark_keypoints(path, destination, dist=False):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./test_images/test5_erode.jpg", "./test_images/test5_key.jpg")
+    mark_keypoints("./test_images/test5_erode.jpg", "./test_images/test5_key2.jpg")

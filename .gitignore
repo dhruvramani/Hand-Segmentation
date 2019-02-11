@@ -1,3 +1,6 @@
+MODEL.pth
+utils/pose_iter_102000.caffemodel
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
