@@ -49,6 +49,7 @@ def mark_keypoints(path, destination, dist=True):
                 while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
                     p3[0] = p1[0] + 1 * math.cos(theta)
                     p3[1] = p1[1] + 1 * math.cos(theta)
+                    print(p3[0], p3[1])
 
                 while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
                     p4[0] = p1[0] + 1 * math.cos(phi)
