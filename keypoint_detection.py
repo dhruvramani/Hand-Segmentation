@@ -52,8 +52,8 @@ def mark_keypoints(path, destination, dist=True):
                 p3[1] = math.ceil(p1[1] + 100 * math.sin(theta))
 
                 #while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                p4[0] = math.ceil(p4[0] - 100 * math.cos(theta))
-                p4[1] = math.ceil(p4[1] - 100 * math.sin(theta))
+                p4[0] = math.ceil(p4[0] - 150 * math.cos(theta))
+                p4[1] = math.ceil(p4[1] - 150 * math.sin(theta))
 
                 #cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
