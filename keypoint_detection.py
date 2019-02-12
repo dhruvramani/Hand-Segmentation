@@ -54,7 +54,7 @@ def mark_keypoints(path, destination, dist=True):
                 try :
                     print(frame[p3[0], p3[1]])
                     count = 0
-                    while(list(frame[p3[0], p3[1]]) != [0, 0, 0] and count < 50):
+                    while(list(frame[p3[0], p3[1]]) != [0, 0, 0] and count > 50):
                         p3[0] = math.ceil(p1[0] + 1.5 * math.cos(theta))
                         p3[1] = math.ceil(p1[1] + 1.5 * math.sin(theta))
                         count += 1
