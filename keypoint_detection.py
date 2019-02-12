@@ -54,13 +54,13 @@ def mark_keypoints(path, destination, dist=True):
                 try :
                     coo = 0
                     while(net_black(frame, p3) != 0):
-                        p3[0] = math.ceil(p3[0] + 2 * math.cos(theta))
-                        p3[1] = math.ceil(p3[1] + 2 * math.sin(theta))
+                        p3[0] = math.ceil(p1[0] + coo * math.cos(theta))
+                        p3[1] = math.ceil(p1[1] + coo * math.sin(theta))
                         coo += 1
                     coo = 0
                     while(net_black(frame, p4) != 0):
-                        p4[0] = math.ceil(p4[0] - 2 * math.cos(theta))
-                        p4[1] = math.ceil(p4[1] - 2 * math.sin(theta))
+                        p4[0] = math.ceil(p1[0] - coo * math.cos(theta))
+                        p4[1] = math.ceil(p1[1] - coo * math.sin(theta))
                         coo += 1
                 except :
                     print("Ignored")
