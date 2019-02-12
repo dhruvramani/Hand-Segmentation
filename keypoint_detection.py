@@ -45,11 +45,11 @@ def mark_keypoints(path, destination, dist=True):
                 print(pair)
                 poo =  math.atan((p2[1] - p1[1]) / (p2[0] - p1[0])) 
                 theta =  (math.pi / 2) + poo
-                phi = - (math.pi) 
-                p3, p4 = list(p1), list(p2)
+                p3, p4 = list(p1), list(p1)
                 #while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
                 p3[0] = math.ceil(p1[0] + 100 * math.cos(theta))
                 p3[1] = math.ceil(p1[1] + 100 * math.sin(theta))
+
 
                 #while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
                 p4[0] = math.ceil(p4[0] - 150 * math.cos(theta))
