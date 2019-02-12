@@ -43,7 +43,7 @@ def mark_keypoints(path, destination, dist=True):
             p1, p2 = points[pair[0]], points[pair[1]]
             if p1 and p2:
                 print(pair)
-                theta = math.atan((p2[1] - p1[1]) / (p2[0] - p1[0])) 
+                theta =  (math.pi / 2) + math.atan((p2[1] - p1[1]) / (p2[0] - p1[0])) 
                 phi = math.pi + theta
                 p3, p4 = list(p1), list(p2)
                 #while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
