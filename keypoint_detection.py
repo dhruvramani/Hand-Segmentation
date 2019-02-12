@@ -48,15 +48,17 @@ def mark_keypoints(path, destination, dist=True):
                 poo =  math.atan((p2[1] - p1[1]) / (p2[0] - p1[0])) 
                 theta =  (math.pi / 2) + poo
                 p3, p4 = list(p1), list(p1)
-                while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
-                    p3[0] = math.ceil(p1[0] + 1.5 * math.cos(theta))
-                    p3[1] = math.ceil(p1[1] + 1.5 * math.sin(theta))
+                try :
+                    while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
+                        p3[0] = math.ceil(p1[0] + 1.5 * math.cos(theta))
+                        p3[1] = math.ceil(p1[1] + 1.5 * math.sin(theta))
 
-
-                while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                    p4[0] = math.ceil(p4[0] - 1.5 * math.cos(theta))
-                    p4[1] = math.ceil(p4[1] - 1.5 * math.sin(theta))
-
+                    while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
+                        p4[0] = math.ceil(p4[0] - 1.5 * math.cos(theta))
+                        p4[1] = math.ceil(p4[1] - 1.5 * math.sin(theta))
+                except IndexError:
+                    print("Ignored")
+                    continue
                 #cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[0], p1[1]), (p4[0], p4[1]), (0, 255, 0), 2)
