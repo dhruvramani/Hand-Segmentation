@@ -16,6 +16,9 @@ POSE_PAIRS = [  [0,1], [1,2], [2,3],
 npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
+def net_black(frame, coord, size=10):
+    print(np.mean(frame[coord[0] - 10 : coord[0] + 10, coord[1] - 10 : coord[1] + 10], :))
+
 def mark_keypoints(path, destination, dist=True):
     frame = cv2.imread(path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
@@ -49,13 +52,14 @@ def mark_keypoints(path, destination, dist=True):
                 theta =  (math.pi / 2) + poo
                 p3, p4 = list(p1), list(p1)
                 try :
+                    new_black(frame, p3)
                     while(list(frame[p3[0], p3[1]]) != [0, 0, 0]):
-                        p3[0] = math.ceil(p1[0] + 5 * math.cos(theta))
-                        p3[1] = math.ceil(p1[1] + 5 * math.sin(theta))
+                        p3[0] = math.ceil(p1[0] + 1.5 * math.cos(theta))
+                        p3[1] = math.ceil(p1[1] + 1.5 * math.sin(theta))
 
                     while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                        p4[0] = math.ceil(p4[0] - 5 * math.cos(theta))
-                        p4[1] = math.ceil(p4[1] - 5 * math.sin(theta))
+                        p4[0] = math.ceil(p4[0] - 1.5 * math.cos(theta))
+                        p4[1] = math.ceil(p4[1] - 1.5 * math.sin(theta))
                 except IndexError:
                     print("Ignored")
                     continue
