@@ -58,7 +58,6 @@ def mark_keypoints(path, destination, dist=True):
                         p3[1] = math.ceil(p1[1] + coo * math.sin(theta))
                         coo += 1
                         net_black(frame, p3)
-                        _ = input()
 
                     while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
                         p4[0] = math.ceil(p4[0] - 1.5 * math.cos(theta))
