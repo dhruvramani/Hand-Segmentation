@@ -64,7 +64,7 @@ def mark_keypoints(path, destination, dist=True):
                         p4[0] = math.ceil(p1[0] - 1.5 * math.cos(theta))
                         p4[1] = math.ceil(p1[1] - 1.5 * math.sin(theta))
                         coo += 1
-                except IndexError, ValueError:
+                except :
                     print("Ignored")
                     continue
                 #cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
