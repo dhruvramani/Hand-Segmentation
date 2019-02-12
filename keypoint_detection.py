@@ -16,7 +16,7 @@ POSE_PAIRS = [  [0,1], [1,2], [2,3],
 npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
-def net_black(frame, coord, size=10):
+def net_black(frame, coord, size=100):
     print(np.mean(frame[coord[0] - 10 : coord[0] + 10, coord[1] - 10 : coord[1] + 10, :]))
 
 def mark_keypoints(path, destination, dist=True):
