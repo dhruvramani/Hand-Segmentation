@@ -50,12 +50,13 @@ def mark_keypoints(path, destination, dist=True):
                 p3[0] = math.ceil(p1[0] + 100 * math.cos(theta))
                 p3[1] = math.ceil(p1[1] + 100 * math.sin(theta))
 
-                while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
-                    p4[0] = math.ceil(p4[0] + 1.5 * math.cos(phi))
-                    p4[1] = math.ceil(p4[1] + 1.5 * math.sin(phi))
+                #while(list(frame[p4[0], p4[1]]) != [0, 0, 0]):
+                p4[0] = math.ceil(p4[0] + 100 * math.cos(phi))
+                p4[1] = math.ceil(p4[1] + 100 * math.sin(phi))
 
                 cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
+                cv2.line(frame, (p1[0], p1[1]), (p4[0], p4[1]), (0, 255, 0), 2)
                 dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
