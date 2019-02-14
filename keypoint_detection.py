@@ -22,6 +22,8 @@ def net_black(frame, coord, size=20):
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
+    print(frame.shape, outframe.shape)
+    _ = input(" ")
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
     inHeight = 368
@@ -56,25 +58,25 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 poo =  math.atan((p2[1] - p1[1]) / (p2[0] - p1[0])) 
                 theta =  (math.pi / 2) + poo
                 p3, p4 = list(p1), list(p1)
-                try :
-                    coo = 0
-                    #print(outframe[p3[0], p3[1]])
+                #try :
+                coo = 0
+                #print(outframe[p3[0], p3[1]])
 
-                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0] and coo < 50):
-                        p3[0] = int(p1[0] + coo * math.cos(theta))
-                        p3[1] = int(p1[1] + coo * math.sin(theta))
-                        print(coo, p3, outframe[p3[0], p3[1]])
-                        coo += 1
-                    print(pair[0])
-                    _ = input()
+                while(list(outframe[p3[0], p3[1]]) != [0, 0, 0] and coo < 50):
+                    p3[0] = int(p1[0] + coo * math.cos(theta))
+                    p3[1] = int(p1[1] + coo * math.sin(theta))
+                    print(coo, p3, outframe[p3[0], p3[1]])
+                    coo += 1
+                print(pair[0])
+                _ = input()
                 #coo = 0
                 #while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
                 #    p4[0] = math.ceil(p1[0] - coo * math.cos(theta))
                 #    p4[1] = math.ceil(p1[1] - coo * math.sin(theta))
                 #    coo += 1
-                except :
-                    print("Ignored")
-                    continue
+                #except :
+                #    print("Ignored")
+                #    continue
                 #cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
                 #cv2.line(frame, (p1[0], p1[1]), (p4[0], p4[1]), (0, 255, 0), 2)
@@ -86,4 +88,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./test_images/test1_erode.jpg", "./test_images/test1_key2.jpg", "./test_images/test1_OUT.jpg")
+    mark_keypoints("./test_images/test5_erode.jpg", "./test_images/test5_key2.jpg", "./test_images/test5_OUT.jpg")
