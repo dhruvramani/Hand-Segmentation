@@ -61,8 +61,9 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 #print(outframe[p3[0], p3[1]])
 
                 while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
-                    p3[0] = int(p3[0] + 2 * math.cos(theta))
-                    p3[1] = int(p3[1] + 2 * math.sin(theta))
+                    p3[0] = int(p1[0] + coo * math.cos(theta))
+                    p3[1] = int(p1[1] + coo * math.sin(theta))
+                    print(coo)
                     coo += 1
                 #coo = 0
                 #while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
