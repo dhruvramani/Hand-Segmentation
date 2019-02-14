@@ -17,7 +17,7 @@ npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
 def net_black(frame, coord, size=20):
-    for(i in range size):
+    for i in range (0, size):
         if(frame[coord[0] + size, :, :] != [0, 0, 0])
             return -1
     return 1
