@@ -54,10 +54,10 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 p3, p4 = list(p1), list(p1)
                 try :
                     coo = 0
+                    print(outframe[p3[0], p3[1]])
                     while(list(outframe[p3[0], p3[1]]) == [255, 255, 255]):
                         p3[0] = math.ceil(p1[0] + coo * math.cos(theta))
                         p3[1] = math.ceil(p1[1] + coo * math.sin(theta))
-                        print(p3, coo)
                         coo += 1
                     coo = 0
                     while(list(outframe[p4[0], p4[1]]) == [255, 255, 255]):
