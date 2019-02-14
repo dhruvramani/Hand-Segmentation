@@ -17,7 +17,7 @@ npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
 def net_black(frame, coord, size=20):
-    return int(np.sum(frame[coord[0] : coord[0] + size, :, :]))
+    return math.floor(np.mean(frame[coord[0] : coord[0] + size, :, :]))
 
 def mark_keypoints(path, destination, dist=True):
     frame = cv2.imread(path)
@@ -53,12 +53,12 @@ def mark_keypoints(path, destination, dist=True):
                 p3, p4 = list(p1), list(p1)
                 try :
                     coo = 0
-                    while(net_black(frame, p3) != 0 or coo < 50):
+                    while(net_black(frame, p3) != 0 or coo < 10):
                         p3[0] = math.ceil(p1[0] + coo * math.cos(theta))
                         p3[1] = math.ceil(p1[1] + coo * math.sin(theta))
                         coo += 1
                     coo = 0
-                    while(net_black(frame, p4) != 0 or coo < 50):
+                    while(net_black(frame, p4) != 0 or coo < 10):
                         p4[0] = math.ceil(p1[0] - coo * math.cos(theta))
                         p4[1] = math.ceil(p1[1] - coo * math.sin(theta))
                         coo += 1
