@@ -78,4 +78,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./test_images/test1_erode.jpg", "./test_images/test1_key2.jpg", "./test_images/test1_OUT.jpg")
+    mark_keypoints("./test_images/test5_erode.jpg", "./test_images/test5_key2.jpg", "./test_images/test5_OUT.jpg")
