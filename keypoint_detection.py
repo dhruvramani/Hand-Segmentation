@@ -22,6 +22,11 @@ def net_black(frame, coord, size=20):
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
+    for i in range(0, outframe.shape[0]):
+        for j in range(0, outframe.shape[1]):
+            if(list(outframe[i, j]) == [255, 255, 255]):
+                print("yas")
+                break
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
     inHeight = 368
@@ -55,12 +60,12 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 try :
                     coo = 0
                     print(outframe[p3[0], p3[1]])
-                    while(list(outframe[p3[0], p3[1]]) == [0, 0, 0]):
+                    while(list(outframe[p3[0], p3[1]]) == [255, 255, 255]):
                         p3[0] = math.ceil(p1[0] + coo * math.cos(theta))
                         p3[1] = math.ceil(p1[1] + coo * math.sin(theta))
                         coo += 1
                     coo = 0
-                    while(list(outframe[p4[0], p4[1]]) == [0, 0, 0]):
+                    while(list(outframe[p4[0], p4[1]]) == [255, 255, 255]):
                         p4[0] = math.ceil(p1[0] - coo * math.cos(theta))
                         p4[1] = math.ceil(p1[1] - coo * math.sin(theta))
                         coo += 1
