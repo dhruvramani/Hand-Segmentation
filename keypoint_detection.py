@@ -18,7 +18,7 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
 def net_black(frame, coord, size=20):
     for i in range (0, size):
-        if(frame[coord[0] + size, :, :] != [0, 0, 0])
+        if(frame[coord[0] + size, :, :] != [0, 0, 0]):
             return -1
     return 1
     #return int(np.sum(frame[coord[0] - size : coord[0] + size, coord[1] - size : coord[1] + size, :]))
