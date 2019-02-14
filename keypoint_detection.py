@@ -17,7 +17,7 @@ npoints = 22
 net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 
 def net_black(frame, coord, size=20):
-    return int(np.mean(frame[coord[0] : coord[0] + size, :, :]))
+    return int(np.sum(frame[coord[0] : coord[0] + size, :, :]))
 
 def mark_keypoints(path, destination, dist=True):
     frame = cv2.imread(path)
