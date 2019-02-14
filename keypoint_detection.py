@@ -43,7 +43,11 @@ def mark_keypoints(path, destination, out_path, dist=True):
             points.append(None)
 
     if(dist):
+        done = []
         for pair in POSE_PAIRS:
+            if(pair[0] in done):
+                continue
+            done.append(pair[0])
             p1, p2 = points[pair[0]], points[pair[1]]
             if(0 in pair):
                 continue
