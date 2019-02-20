@@ -53,11 +53,11 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 continue
             # y = p[0], x = p[1]
             if p1 and p2 and p2[0] != p1[0]:
-                print(pair)
-                poo =  math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
-                theta =  (math.pi / 2) + poo
-                p3, p4 = list(p1), list(p1)
                 try :
+                    print(pair)
+                    poo =  math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
+                    theta =  (math.pi / 2) + poo
+                    p3, p4 = list(p1), list(p1)
                     coo = 0
                     while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
                         p3[0] = int(p1[0] + coo * math.sin(theta))
