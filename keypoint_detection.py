@@ -60,10 +60,9 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 coo = 0
                 #print(outframe[p3[0], p3[1]])
 
-                while(list(outframe[p3[1], p3[0]]) != [0, 0, 0] and coo < 50):
-                    p3[1] = int(p1[1] + coo * math.cos(theta))
-                    p3[0] = int(p1[0] + coo * math.sin(theta))
-                    #print(coo, p3, outframe[p3[0], p3[1]])
+                while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
+                    p3[0] = int(p1[0] + coo * math.cos(theta))
+                    p3[1] = int(p1[1] + coo * math.sin(theta))
                     coo += 1
                 #coo = 0
                 #while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
@@ -74,11 +73,11 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 #    print("Ignored")
                 #    continue
                 #cv2.line(frame, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
-                cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
+                cv2.line(outframe, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
                 #cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
                 #cv2.line(frame, (p1[0], p1[1]), (p4[0], p4[1]), (0, 255, 0), 2)
                 dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
-                cv2.putText(outframe, "{}".format(outframe[int(p3[1]), int(p3[0])]), (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
+                cv2.putText(outframe, "{}".format(outframe[int(p3[0]), int(p3[1])]), (int(p3[0]), int(p3[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
     #cv2.imwrite(destination, frame)
