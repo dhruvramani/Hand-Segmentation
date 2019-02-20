@@ -43,12 +43,51 @@ def predict_img(net, full_img, gpu=False):
     return yy > 0.5
 
 
+def segment(model='MODEL.pth', inputs=[], output=[], cpu=False, viz=False, no_save=False):
+    print("Using model file : {}".format(model))
+    net = UNet(3, 1)
+    if not cpu:
+        print("Using CUDA version of the net, prepare your GPU !")
+        net.cuda()
+    else:
+        net.cpu()
+        print("Using CPU version of the net, this may be very slow")
+
+    in_files = inputs
+    print("in_files=", in_files)
+    out_files = []
+    if not output:
+        for f in in_files:
+            pathsplit = os.path.splitext(f)
+            out_files.append("{}_OUT{}".format(pathsplit[0], pathsplit[1]))
+    elif len(in_files) != len(output):
+        print("Error : Input files and output files are not of the same length")
+        raise SystemExit()
+    else:
+        out_files = output
+
+    print("Loading model ...")
+    net.load_state_dict(torch.load(model))
+    print("Model loaded !")
+
+    for i, fn in enumerate(in_files):
+        print("\nPredicting image {} ...".format(fn))
+        img = Image.open(fn)
+        
+        out = predict_img(net, img, not cpu)
+        if viz:
+            print("Vizualising results for image {}, close to continue ...".format(fn))
+            plot_img_mask(img, out)
+        if not no_save:
+            out_fn = out_files[i]
+            result = Image.fromarray((out * 255).astype(numpy.uint8))
+            result.save(out_files[i])
+              
+            print("Mask saved to {}".format(out_files[i]))
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', '-m', default='MODEL.pth',
-                        metavar='FILE',
-                        help="Specify the file in which is stored the model"
-                             " (default : 'MODEL.pth')")
+    parser.add_argument('--model', '-m', default='MODEL.pth', metavar='FILE', help="Specify the file in which is stored the model (default : 'MODEL.pth')")
     parser.add_argument('--input', '-i', metavar='INPUT', nargs='+',
                         help='filenames of input images', required=True)
     parser.add_argument('--output', '-o', metavar='INPUT', nargs='+',
@@ -64,44 +103,4 @@ if __name__ == "__main__":
                         default=False)
 
     args = parser.parse_args()
-    print("Using model file : {}".format(args.model))
-    net = UNet(3, 1)
-    if not args.cpu:
-        print("Using CUDA version of the net, prepare your GPU !")
-        net.cuda()
-    else:
-        net.cpu()
-        print("Using CPU version of the net, this may be very slow")
-
-    in_files = args.input
-    print("in_files=",in_files)
-    out_files = []
-    if not args.output:
-        for f in in_files:
-            pathsplit = os.path.splitext(f)
-            out_files.append("{}_OUT{}".format(pathsplit[0], pathsplit[1]))
-    elif len(in_files) != len(args.output):
-        print("Error : Input files and output files are not of the same length")
-        raise SystemExit()
-    else:
-        out_files = args.output
-
-    print("Loading model ...")
-    net.load_state_dict(torch.load(args.model))
-    print("Model loaded !")
-
-    for i, fn in enumerate(in_files):
-        print("\nPredicting image {} ...".format(fn))
-        img = Image.open(fn)
-        
-        out = predict_img(net, img, not args.cpu)
-        if args.viz:
-            print("Vizualising results for image {}, close to continue ..."
-                  .format(fn))
-            plot_img_mask(img, out)
-        if not args.no_save:
-            out_fn = out_files[i]
-            result = Image.fromarray((out * 255).astype(numpy.uint8))
-            result.save(out_files[i])
-              
-            print("Mask saved to {}".format(out_files[i]))
+    segment(args.model, args.input, args.output, args.cpu, args.viz, args.no_save)
