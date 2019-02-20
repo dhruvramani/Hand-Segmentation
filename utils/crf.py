@@ -12,12 +12,13 @@ def dense_crf(img, output_probs):
     d = dcrf.DenseCRF2D(w, h, 2)
     U = -np.log(output_probs)
     U = U.reshape((2, -1))
-    #U = np.ascontiguousarray(U)
-    #img = np.ascontiguousarray(img)
+    U = np.ascontiguousarray(U)
+    img = np.ascontiguousarray(img)
 
     d.setUnaryEnergy(U)
 
     d.addPairwiseGaussian(sxy=20, compat=3)
+    print(img.shape)
     d.addPairwiseBilateral(sxy=30, srgb=20, rgbim=img, compat=10)
 
     Q = d.inference(5)

@@ -38,7 +38,7 @@ def predict_img(net, full_img, gpu=False):
     y_r = F.upsample_bilinear(y_r, scale_factor=2).data[0][0].cpu().numpy()
 
     y = merge_masks(y_l, y_r, full_img.size[0])
-    yy = dense_crf(np.array(full_img), y)
+    yy = dense_crf(np.array(full_img).astype(np.uint8), y)
 
     return yy > 0.5
 
