@@ -74,7 +74,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 #    print("Ignored")
                 #    continue
                 #cv2.line(outframe, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
-                cv2.line(outframe, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
+                cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 #cv2.line(frame, (p1[0], p1[1]), (p3[0], p3[1]), (0, 255, 0), 2)
                 #cv2.line(frame, (p1[0], p1[1]), (p4[0], p4[1]), (0, 255, 0), 2)
                 dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
