@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+'''
 lower = np.array([0, 48, 80], dtype = "uint8")
 upper = np.array([20, 255, 255], dtype = "uint8")
 
@@ -14,6 +14,19 @@ def seperate(path, destination):
     skinMask = cv2.GaussianBlur(skinMask, (3, 3), 0)
     cv2.imwrite(destination, skinMask)
     skin = cv2.bitwise_and(frame, frame, mask = skinMask)
+'''
+
+bgSubThreshold = 50
+learningRate = 0
+bgModel = cv2.createBackgroundSubtractorMOG2(0, bgSubThreshold)
+
+def remove_background(path, destination):
+    frame = cv2.imread(path)
+    fgmask = bgModel.apply(frame, learningRate=learningRate)
+    kernel = np.ones((3, 3), np.uint8)
+    fgmask = cv2.erode(fgmask, kernel, iterations=1)
+    res = cv2.bitwise_and(frame, frame, mask=fgmask)
+    return res
 
 if __name__ == '__main__':
-    seperate("./test1.jpg", "./test1_out.jpg")
+    remove_background("./test1.jpg", "./test1_out.jpg")
