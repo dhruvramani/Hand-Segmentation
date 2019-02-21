@@ -19,7 +19,7 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
-def mark_keypoints(path, destination, out_path, dist=True):
+def mark_keypoints(path, destination, out_path, dist=False):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
@@ -81,4 +81,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./test_images/test10_erode.jpg", "./test_images/test10_key2.jpg", "./test_images/test10_OUT.jpg")
+    mark_keypoints("./hand.jpg", "./hand_key2.jpg", "./test_images/test10_OUT.jpg")
