@@ -13,7 +13,7 @@ def dense_crf(img, output_probs):
     U = -np.log(output_probs)
     U = U.reshape((2, -1))
     U = np.ascontiguousarray(U)
-    img = np.ascontiguousarray(img)[:-1, :, :]
+    img = np.ascontiguousarray()
 
     d.setUnaryEnergy(U)
 
