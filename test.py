@@ -73,7 +73,8 @@ def segment(model='MODEL.pth', inputs=[], output=[], cpu=False, viz=False, no_sa
     for i, fn in enumerate(in_files):
         print("\nPredicting image {} ...".format(fn))
         img = Image.open(fn)
-        
+        size = 1918, 1280
+        img.thumbnail(size, Image.ANTIALIAS)
         out = predict_img(net, img, not cpu)
         if viz:
             print("Vizualising results for image {}, close to continue ...".format(fn))
