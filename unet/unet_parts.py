@@ -65,6 +65,7 @@ class up(nn.Module):
         x1 = self.up(x1)
         diffX = x1.size()[2] - x2.size()[2]
         diffY = x1.size()[3] - x2.size()[3]
+        print(diffX, diffY)
         print(x1.size(), x2.size())
         x2 = F.pad(x2, (diffX // 2, int(diffX / 2),
                         diffY // 2, int(diffY / 2)))
