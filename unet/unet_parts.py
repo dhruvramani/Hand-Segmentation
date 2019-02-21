@@ -68,13 +68,13 @@ class up(nn.Module):
         print(diffX, diffY)
         print(x1.size(), x2.size())
 
-        if(diffX > 0):
+        if(diffX >= 0):
             x2 = F.pad(x2, (diffX // 2, int(diffX / 2), 0, 0))
-        elif(diffX < 0):
+        else:
             x1 = F.pad(x1, (diffX // 2, int(diffX / 2), 0, 0))
-        if(diffY > 0):
+        if(diffY >= 0):
             x2 = F.pad(x2, (0, 0, diffY // 2, int(diffY / 2)))
-        elif(diffY < 0):
+        else:
             x1 = F.pad(x1, (0, 0, diffY // 2, int(diffY / 2)))
         print(x1.size(), x2.size())
         _ = input("")
