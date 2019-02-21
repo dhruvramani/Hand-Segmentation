@@ -25,6 +25,7 @@ def remove_background(path, destination):
     fgmask = bgModel.apply(frame, learningRate=learningRate)
     kernel = np.ones((3, 3), np.uint8)
     fgmask = cv2.erode(fgmask, kernel, iterations=1)
+    cv2.imwrite(destination, fgmask)
     res = cv2.bitwise_and(frame, frame, mask=fgmask)
     return res
 
