@@ -19,17 +19,9 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
-def check_valid(pixel_vals):
-    lower = [0, 48, 80]
-    upper = [20, 255, 255]
-    for i in range(0, len(pixel_vals)):
-        if(pixel_vals[i] > upper[i] or pixel_vals[i] < lower[i]):
-            return False
-    return True
-
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
-    #outframe = cv2.imread(out_path)
+    outframe = cv2.imread(out_path)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
     inHeight = 368
@@ -51,7 +43,6 @@ def mark_keypoints(path, destination, out_path, dist=True):
             points.append(None)
 
     if(dist):
-        converted = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         done = []
         allowed = [1, 2, 3, 6, 7, 10, 11, 14, 15, 18, 19]
         for pair in POSE_PAIRS:
@@ -65,12 +56,12 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
                     p3, p4 = list(p1), list(p1)
                     dist = 0
-                    while(check_valid(list(converted[p3[0], p3[1]])) == True):
+                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
-                    while(check_valid(list(converted[p4[0], p4[1]])) == True):
+                    while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1

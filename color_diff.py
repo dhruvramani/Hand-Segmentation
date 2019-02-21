@@ -15,5 +15,18 @@ def seperate(path, destination):
     cv2.imwrite(destination, skinMask)
     skin = cv2.bitwise_and(frame, frame, mask = skinMask)
 
+def contour(path, destination):
+    image = cv2.imread(path)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.GaussianBlur(gray, (5, 5), 0)
+ 
+    thresh = cv2.threshold(gray, 45, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.erode(thresh, None, iterations=2)
+    thresh = cv2.dilate(thresh, None, iterations=2)
+    cv2.imwrite(destination, thresh)
+    #cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #cnts = imutils.grab_contours(cnts)
+    #c = max(cnts, key=cv2.contourArea)
+
 if __name__ == '__main__':
     seperate("./hand.jpg", "./hand_out.jpg")
