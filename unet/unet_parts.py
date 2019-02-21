@@ -66,23 +66,15 @@ class up(nn.Module):
         x1 = self.up(x1)
         diffX = x1.size()[2] - x2.size()[2]
         diffY = x1.size()[3] - x2.size()[3]
-        print(diffX, diffY)
-        print(x1.size(), x2.size())
 
         if(diffX >= 0):
-            print("x2x")
             x2 = F.pad(x2, (0, 0, diffX // 2, math.ceil(diffX / 2)))
         else:
-            print("xx")
             x1 = F.pad(x1, (0, 0, -diffX // 2, math.ceil(-diffX / 2)))
         if(diffY >= 0):
-            print("x2y")
             x2 = F.pad(x2, (diffY // 2, math.ceil(diffY / 2), 0, 0))
         else:
-            print("x1y")
             x1 = F.pad(x1, (-diffY // 2, math.ceil(-diffY / 2), 0, 0))
-        print(x1.size(), x2.size())
-        _ = input("")
         x = torch.cat([x2, x1], dim=1)
         x = self.conv(x)
         return x
