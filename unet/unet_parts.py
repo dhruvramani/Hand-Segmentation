@@ -73,13 +73,13 @@ class up(nn.Module):
             x2 = F.pad(x2, (diffX // 2, int(diffX / 2), 0, 0))
         else:
             print("xx")
-            x1 = F.pad(x1, (diffX // 2, int(diffX / 2), 0, 0))
+            x1 = F.pad(x1, (-diffX // 2, int(-diffX / 2), 0, 0))
         if(diffY >= 0):
             print("x2y")
             x2 = F.pad(x2, (0, 0, diffY // 2, int(diffY / 2)))
         else:
             print("x1y")
-            x1 = F.pad(x1, (0, 0, diffY // 2, int(diffY / 2)))
+            x1 = F.pad(x1, (0, 0, -diffY // 2, int(-diffY / 2)))
         print(x1.size(), x2.size())
         _ = input("")
         x = torch.cat([x2, x1], dim=1)
