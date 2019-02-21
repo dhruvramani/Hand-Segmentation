@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-lower = np.array([0,133,85], dtype = "uint8")
-upper = np.array([255,170,125], dtype = "uint8")
+lower = np.array([0, 48, 80], dtype = "uint8")
+upper = np.array([20, 255, 255], dtype = "uint8")
 
 def seperate(path, destination):
     frame = cv2.imread(path)
