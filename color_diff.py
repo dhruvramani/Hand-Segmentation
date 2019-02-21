@@ -16,4 +16,4 @@ def seperate(path, destination):
     skin = cv2.bitwise_and(frame, frame, mask = skinMask)
 
 if __name__ == '__main__':
-    seperate("./hand.jpg", "./hand_out.jpg")
+    seperate("./test1.jpg", "./test1_out.jpg")
