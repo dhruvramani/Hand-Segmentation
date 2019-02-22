@@ -28,4 +28,5 @@ def work(inputpath, outputpath):
 
 
 if __name__ == '__main__':
-    work("hand2.jpg", "hand2_out.jpg")
+    points, p_info = work("hand2.jpg", "hand2_out.jpg")
+    print(p_info)

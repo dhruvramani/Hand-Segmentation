@@ -42,6 +42,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
         else :
             points.append(None)
 
+    to_return = dict()
     if(dist):
         done = []
         allowed = [3, 6, 7, 10, 11, 14, 15, 18, 19]
@@ -52,33 +53,35 @@ def mark_keypoints(path, destination, out_path, dist=True):
             p1, p2 = list(points[pair[0]]), list(points[pair[1]])
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
-                #try :
-                if(p2[1] == p1[1]):
-                    p2[1] += 1
-                theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
-                p3, p4 = list(p1), list(p1)
-                dist = 0
-                while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
-                    p3[0] = int(p1[0] + dist * math.sin(theta))
-                    p3[1] = int(p1[1] + dist * math.cos(theta))
-                    dist += 1
-                dist = 0
-                while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
-                    p4[0] = int(p1[0] - dist * math.sin(theta))
-                    p4[1] = int(p1[1] - dist * math.cos(theta))
-                    dist += 1
-                #except :
-                #    print("Ignored")
-                #    continue
-                #cv2.line(outframe, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
+                try :
+                    if(p2[1] == p1[1]):
+                        p2[1] += 1
+                    theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
+                    p3, p4 = list(p1), list(p1)
+                    dist = 0
+                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
+                        p3[0] = int(p1[0] + dist * math.sin(theta))
+                        p3[1] = int(p1[1] + dist * math.cos(theta))
+                        dist += 1
+                    dist = 0
+                    while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
+                        p4[0] = int(p1[0] - dist * math.sin(theta))
+                        p4[1] = int(p1[1] - dist * math.cos(theta))
+                        dist += 1
+                except :
+                    print("Ignored")
+                    continue
+                cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 255, 255), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
-                dist = "{0:0.1f}".format(math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2))
+                dist = math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2)
+                to_return[pair[0]] = [points[pair[0]][1], points[pair[0]][1], dist]
+                dist = "{0:0.1f}".format(dist)
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
     cv2.imwrite(destination, frame)
-    return points
+    return points, to_return
 
 
 
