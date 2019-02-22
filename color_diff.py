@@ -29,4 +29,4 @@ def contour(path, destination):
     #c = max(cnts, key=cv2.contourArea)
 
 if __name__ == '__main__':
-    seperate("./hand.jpg", "./hand_out.jpg")
+    seperate("./hand2.jpg", "./hand2_out.jpg")

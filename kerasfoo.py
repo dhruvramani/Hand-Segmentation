@@ -14,6 +14,7 @@ def get_model(input_size=(320, 320, 3)):
 img = cv2.imread('./hand.jpg')
 orig_size = img.shape
 res = cv2.resize(img, dsize=(320, 320), interpolation=cv2.INTER_CUBIC)
+res = np.expand_dims(res, axis=0)
 model = get_model()
 y_pred = model.predict(res)
 cv2.imwrite("./hand_out.jpg", y_pred)
