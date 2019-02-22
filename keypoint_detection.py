@@ -52,22 +52,22 @@ def mark_keypoints(path, destination, out_path, dist=True):
             p1, p2 = points[pair[0]], points[pair[1]]
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
-                try :
-                    theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
-                    p3, p4 = list(p1), list(p1)
-                    dist = 0
-                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
-                        p3[0] = int(p1[0] + dist * math.sin(theta))
-                        p3[1] = int(p1[1] + dist * math.cos(theta))
-                        dist += 1
-                    dist = 0
-                    while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
-                        p4[0] = int(p1[0] - dist * math.sin(theta))
-                        p4[1] = int(p1[1] - dist * math.cos(theta))
-                        dist += 1
-                except :
-                    print("Ignored")
-                    continue
+                #try :
+                theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
+                p3, p4 = list(p1), list(p1)
+                dist = 0
+                while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
+                    p3[0] = int(p1[0] + dist * math.sin(theta))
+                    p3[1] = int(p1[1] + dist * math.cos(theta))
+                    dist += 1
+                dist = 0
+                while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
+                    p4[0] = int(p1[0] - dist * math.sin(theta))
+                    p4[1] = int(p1[1] - dist * math.cos(theta))
+                    dist += 1
+                #except :
+                #    print("Ignored")
+                #    continue
                 #cv2.line(outframe, (p1[0], p1[1]), (p2[0], p2[1]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
@@ -81,4 +81,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./hand.jpg", "./hand_key2.jpg", "./test_images/test10_OUT.jpg")
+    mark_keypoints("./hand2_erod.jpg", "./hand2_out.jpg", "./hand2_seg.jpg")
