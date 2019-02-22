@@ -44,7 +44,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
     if(dist):
         done = []
-        allowed = [1, 2, 3, 6, 7, 10, 11, 14, 15, 18, 19]
+        allowed = [3, 6, 7, 10, 11, 14, 15, 18, 19]
         for pair in POSE_PAIRS:
             if(pair[0] not in allowed):
                 continue
