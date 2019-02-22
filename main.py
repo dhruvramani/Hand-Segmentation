@@ -19,6 +19,7 @@ if(not os.path.isfile((args.keypoint_model))):
 #    os.system("source ./download_model.sh")
 
 def work(inputpath, outputpath):
+    print(inputpath.split(".")[:-1])
     segmentpath = inputpath.split(".")[:-1] + "_seg." + inputpath.split(".")[-1]
     erodepath = inputpath.split(".")[:-1] + "_erod." + inputpath.split(".")[-1]
     #segment(args.model, inputpath, segmentpath, args.cpu, False, False)
