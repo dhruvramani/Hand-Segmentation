@@ -53,6 +53,8 @@ def mark_keypoints(path, destination, out_path, dist=True):
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
                 #try :
+                if(p2[1] == p1[1]):
+                    p2[1] += 1
                 theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
                 p3, p4 = list(p1), list(p1)
                 dist = 0
