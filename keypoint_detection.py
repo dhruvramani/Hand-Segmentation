@@ -50,7 +50,11 @@ def mark_keypoints(path, destination, out_path, dist=True):
             if(pair[0] not in allowed):
                 continue
             done.append(pair[0])
-            p1, p2 = list(points[pair[0]]), list(points[pair[1]])
+            try :
+                p1, p2 = list(points[pair[0]]), list(points[pair[1]])
+            except:
+                print("{} ignored".format(pair))
+                continue
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
                 try :
