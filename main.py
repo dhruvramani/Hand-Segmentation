@@ -28,5 +28,5 @@ def work(inputpath, outputpath):
 
 
 if __name__ == '__main__':
-    for i in range(0, 7):
+    for i in range(0, 6):
         points, p_info = work("./next_test/hand{}.png".format(i + 1), "./next_test/hand{}_out.png".format(i+1))
