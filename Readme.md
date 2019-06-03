@@ -1,4 +1,4 @@
-# Hand-Segmentation
+# hAND-Segmentation
 
 This work was finished for a practice purpose.
 https://github.com/wudonghao/Hand-Segmentation.git
