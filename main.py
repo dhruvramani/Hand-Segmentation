@@ -19,14 +19,14 @@ if(not os.path.isfile((args.keypoint_model))):
 #    os.system("source ./download_model.sh")
 
 def work(inputpath, outputpath):
-    segmentpath = inputpath.split(".")[:-1][0] + "_seg." + inputpath.split(".")[-1]
-    erodepath = inputpath.split(".")[:-1][0] + "_erod." + inputpath.split(".")[-1]
+    segmentpath = "./hand_segment.jpg" #inputpath.split(".")[:-1][0] + "_seg." + inputpath.split(".")[-1]
+    erodepath = "./hand_erod.jpg" #inputpath.split(".")[:-1][0] + "_erod." + inputpath.split(".")[-1]
     #segment(args.model, inputpath, segmentpath, args.cpu, False, False)
     contour(inputpath, segmentpath)
     erode(inputpath, segmentpath, erodepath)
-    return mark_keypoints(erodepath, outputpath, segmentpath, dist=False)
+    return mark_keypoints(erodepath, outputpath, segmentpath, dist=True)
 
 
 if __name__ == '__main__':
-    for i in range(0, 6):
-        points, p_info = work("./next_test/hand{}.png".format(i + 1), "./next_test/hand{}_out.png".format(i+1))
+    #for i in range(0, 6):
+    points, p_info = work("./test_images/hand.jpg", "./hand_out.jpg")
