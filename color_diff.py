@@ -31,4 +31,4 @@ def contour(path, destination):
     cv2.imwrite(destination, image)
 
 if __name__ == '__main__':
-    contour("./hand2.jpg", "./hand2_out.jpg")
+    contour("./test_images/hand2.jpg", "./hand2_erod.jpg")
