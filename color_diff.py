@@ -27,8 +27,8 @@ def contour(path, destination):
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
     c = max(cnts, key=cv2.contourArea)
-    #cv2.drawContours(image, [c], -1, (0, 255, 255), 2)
-    image = cv2.bitwise_and(image, image, mask=c)
+    cv.drawContours(image, c, -1, (255,255,255),1)
+    #image = cv2.bitwise_and(image, image, mask=c)
     cv2.imwrite(destination, image)
 
 if __name__ == '__main__':
