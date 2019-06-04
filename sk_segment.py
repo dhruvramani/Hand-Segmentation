@@ -19,8 +19,8 @@ def segment(filepath, outfilepath):
     hand_cleaned = mask_sizes[label_objects]
 
     markers = np.zeros_like(image)
-    markers[image < 30] = 1
-    markers[image > 150] = 2
+    markers[image < 30] = 0
+    markers[image > 100] = 1
 
     elevation_map = sobel(image)
     segmentation = watershed(elevation_map, markers)
