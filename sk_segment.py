@@ -1,3 +1,4 @@
+import numpy as np
 from scipy import ndimage as ndi
 from skimage.filters import sobel
 from skimage.feature import canny
