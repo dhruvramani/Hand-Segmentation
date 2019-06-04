@@ -8,14 +8,14 @@ from skimage.io import imread, imsave, imshow
 def segment(filepath, outfilepath):
     image = imread(filepath, as_gray=True)
     hist, hist_centers = histogram(image)
-    edges = canny(coins/255.)
+    edges = canny(image/255.)
     fill_edges = ndi.binary_fill_holes(edges)
     
     label_objects, nb_labels = ndi.label(fill_edges)
     sizes = np.bincount(label_objects.ravel())
     mask_sizes = sizes > 20
     mask_sizes[0] = 0
-    coins_cleaned = mask_sizes[label_objects]
+    hand_cleaned = mask_sizes[label_objects]
 
     markers = np.zeros_like(image)
     markers[image < 30] = 1
