@@ -63,12 +63,14 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
                     p3, p4 = list(p1), list(p1)
                     dist = 0
-                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
+                    inital_color = list(outframe[p3[0], p3[1]]) 
+                    while(list(outframe[p3[0], p3[1]]) == inital_color):
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
-                    while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
+                    inital_color = list(outframe[p4[0], p4[1]])
+                    while(list(outframe[p4[0], p4[1]]) == inital_color):
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
@@ -90,4 +92,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./hand2_erod.jpg", "./hand2_out.jpg", "./hand2_seg.jpg")
+    mark_keypoints("./hand2.jpg", "./hand2_out.jpg", "./hand2_seg.jpg")

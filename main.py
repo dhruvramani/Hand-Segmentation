@@ -3,8 +3,9 @@ import torch
 import argparse
 import numpy as np
 from erode import erode
-from test import segment
+#from test import segment
 from color_diff import contour
+from sk_segment import segment
 from keypoint_detection import mark_keypoints
 
 parser = argparse.ArgumentParser()
@@ -22,9 +23,9 @@ def work(inputpath, outputpath):
     segmentpath = "./hand_segment.jpg" #inputpath.split(".")[:-1][0] + "_seg." + inputpath.split(".")[-1]
     erodepath = "./hand_erod.jpg" #inputpath.split(".")[:-1][0] + "_erod." + inputpath.split(".")[-1]
     #segment(args.model, inputpath, segmentpath, args.cpu, False, False)
-    contour(inputpath, segmentpath)
-    erode(inputpath, segmentpath, erodepath)
-    return mark_keypoints(erodepath, outputpath, segmentpath, dist=True)
+    segment(inputpath, segmentpath)
+    #erode(inputpath, segmentpath, erodepath)
+    return mark_keypoints(inputpath, outputpath, segmentpath, dist=True)
 
 
 if __name__ == '__main__':
