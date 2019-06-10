@@ -1,3 +1,4 @@
+import cv2
 import os, sys, glob, time
 import numpy as np
 from PIL import Image
