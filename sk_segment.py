@@ -21,7 +21,7 @@ def segment(filepath, outfilepath):
     seg, _ = segm_pipe.segment_color2d_slic_features_model_graphcut(img, model, sp_size=sp_size, sp_regul=sp_regul, dict_features=dict_features, gc_regul=5., gc_edge_type='color', debug_visual=dict_debug)
     #kernel = np.ones((5 , 5), np.float32)/25
     #dst = cv2.filter2D(seg, -1, kernel)
-    seg = np.asarray(seg)
+    seg = np.asarray(seg, np.float32)
     cv2.GaussianBlur(seg, (5, 5), 0)
     matimg.imsave(outfilepath, seg)
 
