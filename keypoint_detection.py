@@ -19,6 +19,9 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
+def color_diff(color_1, color_2):
+    return ((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
+
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
@@ -57,26 +60,26 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 continue
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
-                #try :
-                if(p2[1] == p1[1]):
-                    p2[1] += 1
-                theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
-                p3, p4 = list(p1), list(p1)
-                dist = 0
-                inital_color = list(outframe[p3[0], p3[1]]) 
-                while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 5.0):
-                    p3[0] = int(p1[0] + dist * math.sin(theta))
-                    p3[1] = int(p1[1] + dist * math.cos(theta))
-                    dist += 1
-                dist = 0
-                inital_color = list(outframe[p4[0], p4[1]])
-                while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 5.0):
-                    p4[0] = int(p1[0] - dist * math.sin(theta))
-                    p4[1] = int(p1[1] - dist * math.cos(theta))
-                    dist += 1
-                #except :
-                #    print("Ignored ")
-                #    continue
+                try :
+                    if(p2[1] == p1[1]):
+                        p2[1] += 1
+                    theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
+                    p3, p4 = list(p1), list(p1)
+                    dist = 0
+                    inital_color = list(outframe[p3[0], p3[1]]) 
+                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 5.0):
+                        p3[0] = int(p1[0] + dist * math.sin(theta))
+                        p3[1] = int(p1[1] + dist * math.cos(theta))
+                        dist += 1
+                    dist = 0
+                    inital_color = list(outframe[p4[0], p4[1]])
+                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 5.0):
+                        p4[0] = int(p1[0] - dist * math.sin(theta))
+                        p4[1] = int(p1[1] - dist * math.cos(theta))
+                        dist += 1
+                except :
+                    print("Ignored")
+                    continue
                 cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
