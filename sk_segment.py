@@ -19,8 +19,10 @@ def segment(filepath, outfilepath):
     model, _ = segm_pipe.estim_model_classes_group([img], nb_classes, sp_size=sp_size, sp_regul=sp_regul, dict_features=dict_features, pca_coef=None, model_type='GMM')
     dict_debug = {}
     seg, _ = segm_pipe.segment_color2d_slic_features_model_graphcut(img, model, sp_size=sp_size, sp_regul=sp_regul, dict_features=dict_features, gc_regul=5., gc_edge_type='color', debug_visual=dict_debug)
-    kernel = np.ones((5 , 5),np.float32)/25
-    dst = cv2.filter2D(seg, -1, kernel)
+    #kernel = np.ones((5 , 5), np.float32)/25
+    #dst = cv2.filter2D(seg, -1, kernel)
+    seg = np.asarray(seg)
+    cv2.blur(seg, (5, 5))
     matimg.imsave(outfilepath, seg)
 
 if __name__ == '__main__':
