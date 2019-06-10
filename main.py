@@ -30,4 +30,4 @@ def work(inputpath, outputpath):
 
 if __name__ == '__main__':
     #for i in range(0, 6):
-    points, p_info = work("./test_images/hand.jpg", "./hand_out.jpg")
+    points, p_info = work("./test_images/hand2.jpg", "./hand_out.jpg")
