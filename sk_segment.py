@@ -22,7 +22,7 @@ def segment(filepath, outfilepath):
     #kernel = np.ones((5 , 5), np.float32)/25
     #dst = cv2.filter2D(seg, -1, kernel)
     seg = np.asarray(seg)
-    cv2.blur(seg, (5, 5))
+    cv2.GaussianBlur(seg, (5, 5), 0)
     matimg.imsave(outfilepath, seg)
 
 if __name__ == '__main__':
