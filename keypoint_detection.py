@@ -19,13 +19,7 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
-def color_diff(outframe, points, color_2, threshold=10):
-    color_1 = [0, 0, 0]
-    for i in range(- int(threshold / 2), int(threshold / 2)):
-        for j in range(- int(threshold / 2), int(threshold / 2)):
-            for k in range(3):
-                color_1[k] = color_1[k] + list(outframe[i, j])[k]
-    color_1 = [color_1[0] / threshold, color_1[1] / threshold, color_1[2] / threshold]
+def color_diff(color_1, color_2):
     return ((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
 
 def mark_keypoints(path, destination, out_path, dist=True):
@@ -73,13 +67,13 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     p3, p4 = list(p1), list(p1)
                     dist = 0
                     inital_color = list(outframe[p3[0], p3[1]]) 
-                    while(color_diff(outframe, [p3[0], p3[1]], inital_color) <= 20.0):
+                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 20.0):
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
                     inital_color = list(outframe[p4[0], p4[1]])
-                    while(color_diff(outframe, [p4[0], p4[1]], inital_color) <= 20.0):
+                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 20.0):
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
@@ -95,7 +89,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
-    cv2.imwrite(destination, outframe)
+    cv2.imwrite(destination, frame)
     return points, to_return
 
 
