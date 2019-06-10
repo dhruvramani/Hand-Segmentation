@@ -12,7 +12,7 @@ sys.path += [os.path.abspath('.'), os.path.abspath('..')] # Add path to root
 
 def segment(filepath, outfilepath):
     img = np.array(Image.open(filepath))
-    nb_classes = 2
+    nb_classes = 4
     sp_size = 25
     sp_regul = 0.2
     dict_features = {'color': ['mean', 'std', 'median']}
