@@ -89,7 +89,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
-    cv2.imwrite(destination, frame)
+    cv2.imwrite(destination, outframe)
     return points, to_return
 
 
