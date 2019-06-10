@@ -24,7 +24,6 @@ def work(inputpath, outputpath):
     erodepath = "./hand_erod.jpg" #inputpath.split(".")[:-1][0] + "_erod." + inputpath.split(".")[-1]
     #segment(args.model, inputpath, segmentpath, args.cpu, False, False)
     segment(inputpath, segmentpath)
-    segment(segmentpath, segmentpath) # LOOOOOOL
     #erode(inputpath, segmentpath, erodepath)
     return mark_keypoints(inputpath, outputpath, segmentpath, dist=True)
 
