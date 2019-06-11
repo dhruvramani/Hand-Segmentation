@@ -69,7 +69,8 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     dist = 0
                     inital_color = list(outframe[p3[0], p3[1]]) 
                     while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 20.0):
-                        inital_color = list(outframe[p3[0], p3[1]]) 
+                        if(int(dist % 3) == 0):
+                            inital_color = list(outframe[p3[0], p3[1]]) 
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
@@ -77,7 +78,8 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     print(" ")
                     inital_color = list(outframe[p4[0], p4[1]])
                     while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 20.0):
-                        inital_color = list(outframe[p3[0], p3[1]]) 
+                        if(int(dist % 3) == 0):
+                            inital_color = list(outframe[p4[0], p4[1]]) 
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
