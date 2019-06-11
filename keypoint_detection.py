@@ -19,9 +19,9 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
-def color_diff(color_1, color_2):
+def color_diff(color_1, color_2, threshold):
     print(color_1, color_2)
-    return ((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
+    return ((color_1[0] - color_2[0]) <= threshold and (color_1[1] - color_2[1]) <= threshold and (color_1[2] - color_2[2]) <= threshold) 
 
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
@@ -68,14 +68,14 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     p3, p4 = list(p1), list(p1)
                     dist = 0
                     inital_color = list(outframe[p3[0], p3[1]]) 
-                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 20.0 or color_diff(list(outframe[int(p1[0] + dist * math.sin(theta)), int(p1[1] + dist * math.cos(theta))]), inital_color) <= 10.0):
+                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) or color_diff(list(outframe[int(p1[0] + dist * math.sin(theta)), int(p1[1] + dist * math.cos(theta))]), inital_color)):
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
                     print(" ")
                     inital_color = list(outframe[p4[0], p4[1]])
-                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 20.0 or color_diff(list(outframe[int(p1[0] - dist * math.sin(theta)), int(p1[1] - dist * math.cos(theta))]), inital_color) <= 10.0):
+                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) or color_diff(list(outframe[int(p1[0] - dist * math.sin(theta)), int(p1[1] - dist * math.cos(theta))]), inital_color)):
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
