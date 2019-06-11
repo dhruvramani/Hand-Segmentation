@@ -21,7 +21,7 @@ def net_black(frame, distrd, size=20):
 
 def color_diff(color_1, color_2, threshold):
     print(color_1, color_2)
-    return ((color_1[0] - color_2[0]) <= threshold and (color_1[1] - color_2[1]) <= threshold and (color_1[2] - color_2[2]) <= threshold) 
+    return ((color_1[0] - color_2[0]) <= threshold) or ((color_1[1] - color_2[1]) <= threshold) or ((color_1[2] - color_2[2]) <= threshold) 
 
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
