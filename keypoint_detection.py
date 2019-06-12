@@ -21,11 +21,14 @@ def net_black(frame, distrd, size=20):
 
 def color_diff(color_1, color_2):
     print(color_1, color_2)
-    return abs((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
+    lower_range = [color_2[0] - 15, 50, 50] #+ color_2[1:]
+    upper_range = [color_2[0] + 15, 255, 255] #+ color_2[1:]
+    return lower_range[0] <= color_1[0] and upper_range[0] >= color_1[0] #abs((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
 
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
+    outframe = cv2.cvtColor(outframe, cv2.COLOR_BGR2HSV)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
     inHeight = 368
@@ -68,18 +71,18 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     p3, p4 = list(p1), list(p1)
                     dist = 0
                     inital_color = list(outframe[p3[0], p3[1]]) 
-                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color) <= 20.0):
-                        if(int(dist % 2) == 0):
-                            inital_color = list(outframe[p3[0], p3[1]]) 
+                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color)):
+                        #if(int(dist % 2) == 0):
+                        #    inital_color = list(outframe[p3[0], p3[1]]) 
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
                     print(" ")
                     inital_color = list(outframe[p4[0], p4[1]])
-                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color) <= 20.0):
-                        if(int(dist % 2) == 0):
-                            inital_color = list(outframe[p4[0], p4[1]]) 
+                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color)):
+                        #if(int(dist % 2) == 0):
+                        #    inital_color = list(outframe[p4[0], p4[1]]) 
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
@@ -87,6 +90,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 except :
                     print("Ignored")
                     continue
+                outframe = cv2.cvtColor(outframe, cv2.COLOR_HSV2RGB)
                 cv2.line(outframe, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
                 cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 cv2.line(outframe, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
