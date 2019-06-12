@@ -90,10 +90,10 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 except :
                     print("Ignored")
                     continue
-                outframe = cv2.cvtColor(outframe, cv2.COLOR_HSV2RGB)
-                cv2.line(outframe, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
-                cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
-                cv2.line(outframe, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
+
+                cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
+                cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
+                cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
                 dist = math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2)
                 dist = "{0:0.1f}".format(dist)
                 to_return[pair[0]] = (points[pair[0]][1], points[pair[0]][1], float(dist))
