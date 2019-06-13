@@ -3,6 +3,7 @@ import cv2
 import time
 import math
 import numpy as np
+import imutils
 
 _PROTPATH = "./utils/pose_deploy.prototxt"
 _WEIGHTPATH = "./utils/pose_iter_102000.caffemodel"
