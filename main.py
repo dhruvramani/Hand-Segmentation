@@ -25,7 +25,7 @@ def work(inputpath, outputpath):
     #segment(args.model, inputpath, segmentpath, args.cpu, False, False)
     segment(inputpath, segmentpath)
     #erode(inputpath, segmentpath, erodepath)
-    return mark_keypoints(inputpath, outputpath, inputpath, dist=True)
+    return mark_keypoints(inputpath, outputpath, segmentpath, dist=True)
 
 
 if __name__ == '__main__':

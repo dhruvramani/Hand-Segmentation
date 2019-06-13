@@ -3,7 +3,6 @@ import cv2
 import time
 import math
 import numpy as np
-import imutils
 
 _PROTPATH = "./utils/pose_deploy.prototxt"
 _WEIGHTPATH = "./utils/pose_iter_102000.caffemodel"
@@ -92,25 +91,16 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     print("Ignored")
                     continue
 
-                RGB_again = cv2.cvtColor(outframe, cv2.COLOR_HSV2RGB)
-                gray = cv2.cvtColor(RGB_again, cv2.COLOR_RGB2GRAY)
-
-                ret, threshold = cv2.threshold(gray, 90, 255, 0)
-                contours =  cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-                cnts = imutils.grab_contours(contours)
-                cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[0]
-                cv2.drawContours(outframe, cnts, -1, (0, 0, 255), 3)
-
-                cv2.line(outframe, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
-                cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
-                cv2.line(outframe, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
+                cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
+                cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
+                cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
                 dist = math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2)
                 dist = "{0:0.1f}".format(dist)
                 to_return[pair[0]] = (points[pair[0]][1], points[pair[0]][1], float(dist))
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
-    cv2.imwrite(destination, outframe)
+    cv2.imwrite(destination, frame)
     return points, to_return
 
 
