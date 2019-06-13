@@ -91,7 +91,11 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     print("Ignored")
                     continue
 
-                contours, hierarchy =  cv2.findContours(outframe,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+                RGB_again = cv2.cvtColor(outframe, cv2.COLOR_HSV2RGB)
+                gray = cv2.cvtColor(RGB_again, cv2.COLOR_RGB2GRAY)
+
+                ret, threshold = cv2.threshold(gray, 90, 255, 0)
+                contours, hierarchy =  cv2.findContours(threshold,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
                 cv2.drawContours(outframe, contours, -1, (0, 0, 255), 3)
 
                 cv2.line(outframe, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
