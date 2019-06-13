@@ -96,7 +96,9 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
                 ret, threshold = cv2.threshold(gray, 90, 255, 0)
                 contours =  cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-                cv2.drawContours(outframe, contours, -1, (0, 0, 255), 3)
+                cnts = imutils.grab_contours(contours)
+                cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[0]
+                cv2.drawContours(outframe, cnts, -1, (0, 0, 255), 3)
 
                 cv2.line(outframe, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
                 cv2.line(outframe, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
