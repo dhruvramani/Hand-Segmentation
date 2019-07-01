@@ -12,7 +12,7 @@ sys.path += [os.path.abspath('.'), os.path.abspath('..')] # Add path to root
 
 def segment(filepath, outfilepath):
     img = np.array(Image.open(filepath))
-    nb_classes = 3
+    nb_classes = 5
     sp_size = 25
     sp_regul = 0.2
     dict_features = {'color': ['mean', 'std', 'median']}
@@ -26,4 +26,4 @@ def segment(filepath, outfilepath):
     matimg.imsave(outfilepath, seg)
 
 if __name__ == '__main__':
-    segment("./test_images/test8.jpg", "./hand_erod.jpg")
+    segment("./a4.JPG", "./hand_erod.jpg")

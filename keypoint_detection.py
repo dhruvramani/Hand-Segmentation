@@ -20,10 +20,9 @@ def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
 def color_diff(color_1, color_2):
-    print(color_1, color_2)
     lower_range = [color_2[0] - 15, 50, 50] #+ color_2[1:]
     upper_range = [color_2[0] + 15, 255, 255] #+ color_2[1:]
-    return lower_range[0] <= color_1[0] and upper_range[0] >= color_1[0] #abs((color_1[0] - color_2[0]) + (color_1[1] - color_2[1]) + (color_1[2] - color_2[2])) / 3.0
+    return lower_range[0] <= color_1[0] and upper_range[0] >= color_1[0] 
 
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
@@ -96,7 +95,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                 cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
                 dist = math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2)
                 dist = "{0:0.1f}".format(dist)
-                to_return[pair[0]] = (points[pair[0]][1], points[pair[0]][1], float(dist))
+                to_return[pair[0]] = {points[pair[0]][1], points[pair[0]][1], float(dist))
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
