@@ -20,9 +20,12 @@ def get_key_points(inputpath, outputpath):
     erodepath = inputpath.split(".")[:-1][0] + "_erod." + inputpath.split(".")[-1]
     contour(inputpath, segmentpath)
     erode(inputpath, segmentpath, erodepath)
-    return mark_keypoints(erodepath, outputpath, segmentpath)
+    op = mark_keypoints(inputpath, outputpath, segmentpath)
+    os.system("rm -rf {} {}".format(segmentpath, erodepath))
+    return op
+
 
 if __name__ == '__main__':
     output = args.input.split(".")[:-1][0] + "_out." + args.input.split(".")[-1]
     points, p_info = get_key_points(args.input, output)
-    print(p_info)
+    print(points, p_info)
