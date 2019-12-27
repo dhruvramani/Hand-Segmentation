@@ -19,15 +19,9 @@ net = cv2.dnn.readNetFromCaffe(_PROTPATH, _WEIGHTPATH)
 def net_black(frame, distrd, size=20):
     return int(np.mean(frame[distrd[0] : distrd[0] + size, :, :]))
 
-def color_diff(color_1, color_2):
-    lower_range = [color_2[0] - 15, 50, 50] #+ color_2[1:]
-    upper_range = [color_2[0] + 15, 255, 255] #+ color_2[1:]
-    return lower_range[0] <= color_1[0] and upper_range[0] >= color_1[0] 
-
 def mark_keypoints(path, destination, out_path, dist=True):
     frame = cv2.imread(path)
     outframe = cv2.imread(out_path)
-    outframe = cv2.cvtColor(outframe, cv2.COLOR_BGR2HSV)
     frameWidth, frameHeight = frame.shape[1], frame.shape[0]
     aspect_ratio = frameWidth / frameHeight
     inHeight = 368
@@ -56,11 +50,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
             if(pair[0] not in allowed):
                 continue
             done.append(pair[0])
-            try :
-                p1, p2 = list(points[pair[0]]), list(points[pair[1]])
-            except:
-                print("{} ignored".format(pair))
-                continue
+            p1, p2 = list(points[pair[0]]), list(points[pair[1]])
             if p1 and p2 and p2[0] != p1[0]:
                 print(pair)
                 try :
@@ -69,33 +59,25 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     theta =  (math.pi / 2) + math.atan((p2[0] - p1[0]) / (p2[1] - p1[1])) 
                     p3, p4 = list(p1), list(p1)
                     dist = 0
-                    inital_color = list(outframe[p3[0], p3[1]]) 
-                    while(color_diff(list(outframe[p3[0], p3[1]]), inital_color)):
-                        #if(int(dist % 2) == 0):
-                        #    inital_color = list(outframe[p3[0], p3[1]]) 
+                    while(list(outframe[p3[0], p3[1]]) != [0, 0, 0]):
                         p3[0] = int(p1[0] + dist * math.sin(theta))
                         p3[1] = int(p1[1] + dist * math.cos(theta))
                         dist += 1
                     dist = 0
-                    print(" ")
-                    inital_color = list(outframe[p4[0], p4[1]])
-                    while(color_diff(list(outframe[p4[0], p4[1]]), inital_color)):
-                        #if(int(dist % 2) == 0):
-                        #    inital_color = list(outframe[p4[0], p4[1]]) 
+                    while(list(outframe[p4[0], p4[1]]) != [0, 0, 0]):
                         p4[0] = int(p1[0] - dist * math.sin(theta))
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
-                    print(" ")
                 except :
                     print("Ignored")
                     continue
-
                 cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p3[1], p3[0]), (0, 255, 0), 2)
                 cv2.line(frame, (p1[1], p1[0]), (p4[1], p4[0]), (0, 255, 0), 2)
                 dist = math.sqrt((p4[1] - p3[1])**2 + (p4[0] - p3[0])**2)
                 dist = "{0:0.1f}".format(dist)
-                to_return[pair[0]] = (points[pair[0]][1], points[pair[0]][1], float(dist))
+                # Returns : left (x, y), right (x, y)
+                to_return[pair[0]] = (p3[1], p3[0], p4[1], p4[0], float(dist))
                 #cv2.putText(frame, dist, (int(p3[1]), int(p3[0])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
                 #cv2.putText(frame, "{}".format(dist), (int(p1[0]), int(p1[1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, lineType=cv2.LINE_AA)
 
@@ -105,4 +87,4 @@ def mark_keypoints(path, destination, out_path, dist=True):
 
 
 if __name__ == '__main__':
-    mark_keypoints("./hand2.jpg", "./hand2_out.jpg", "./hand2_seg.jpg")
+    mark_keypoints("./hand2_erod.jpg", "./hand2_out.jpg", "./hand2_seg.jpg")
