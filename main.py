@@ -23,6 +23,6 @@ def get_key_points(inputpath, outputpath):
     return mark_keypoints(erodepath, outputpath, segmentpath)
 
 if __name__ == '__main__':
-    output = inputpath.split(".")[:-1][0] + "_out." + inputpath.split(".")[-1]
+    output = args.input.split(".")[:-1][0] + "_out." + args.input.split(".")[-1]
     points, p_info = get_key_points(args.input, output)
     print(p_info)
