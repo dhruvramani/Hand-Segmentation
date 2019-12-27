@@ -70,6 +70,7 @@ def mark_keypoints(path, destination, out_path, dist=True):
                     p3, p4 = list(p1), list(p1)
                     dist = 0
                     inital_color = list(outframe[p3[0], p3[1]]) 
+                    print(inital_color)
                     while(color_diff(list(outframe[p3[0], p3[1]]), inital_color)):
                         #if(int(dist % 2) == 0):
                         #    inital_color = list(outframe[p3[0], p3[1]]) 
