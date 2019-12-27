@@ -87,8 +87,8 @@ def mark_keypoints(path, destination, out_path, dist=True):
                         p4[1] = int(p1[1] - dist * math.cos(theta))
                         dist += 1
                     print(" ")
-                except as e:
-                    print("e")
+                except Exception as e:
+                    print(e)
                     continue
 
                 cv2.line(frame, (p1[1], p1[0]), (p2[1], p2[0]), (0, 0, 0), 2)
